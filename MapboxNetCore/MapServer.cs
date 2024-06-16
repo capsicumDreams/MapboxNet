@@ -60,7 +60,7 @@ namespace MapboxNetCore
 
         SourceType sourceType;
 
-        public MapServer(string path)
+        public MapServer(String path)
         {
             TilesPath = path;
 
@@ -68,7 +68,8 @@ namespace MapboxNetCore
             {
                 sourceType = SourceType.Mbtiles;
                 loadMbTiles();
-            } else
+            }
+            else
             {
                 sourceType = SourceType.Files;
             }
@@ -125,7 +126,7 @@ namespace MapboxNetCore
             }
             catch (Exception e)
             {
-                throw new MemberAccessException("Could not load Mbtiles source file");
+                throw new MemberAccessException($"Could not load Mbtiles source file:{e.Message}");
             }
         }
 
@@ -192,12 +193,14 @@ namespace MapboxNetCore
             byte[] signature = new byte[signatureSize];
             int bytesRequired = signatureSize;
             int index = 0;
+
             while (bytesRequired > 0)
             {
                 int bytesRead = stream.Read(signature, index, bytesRequired);
                 bytesRequired -= bytesRead;
                 index += bytesRead;
             }
+
             stream.Seek(0, SeekOrigin.Begin);
             string actualSignature = BitConverter.ToString(signature);
             if (actualSignature == expectedSignature) return true;
@@ -286,9 +289,7 @@ namespace MapboxNetCore
                 context.Response = new HttpResponse(HttpResponseCode.Ok, "application/octet-stream", tileStream, keepAlive, corsHeaders);
                 // TODO close stream somewhere
             }
-            else
-                context.Response = new HttpResponse(HttpResponseCode.NotFound, "application/octet-stream", null, keepAlive, corsHeaders);
-
+            else context.Response = new HttpResponse(HttpResponseCode.NotFound, "application/octet-stream", null, keepAlive, corsHeaders);
 
             return Task.Factory.GetCompleted();
         }

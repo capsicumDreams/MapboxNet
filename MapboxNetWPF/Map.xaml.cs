@@ -152,10 +152,11 @@ namespace MapboxNetWPF
         {
             get
             {
-                var expressionBuilder = new ExpressionBuilder("map");
-                expressionBuilder.Execute = Execute;
-                expressionBuilder.TransformToken = Core.ToLowerCamelCase;
-                return expressionBuilder;
+				var expressionBuilder = new ExpressionBuilder("map") {
+					Execute = Execute,
+					TransformToken = Core.ToLowerCamelCase
+				};
+				return expressionBuilder;
             }
         }
 
@@ -163,10 +164,11 @@ namespace MapboxNetWPF
         {
             get
             {
-                var expressionBuilder = new ExpressionBuilder("map");
-                expressionBuilder.Execute = SoftExecute;
-                expressionBuilder.TransformToken = Core.ToLowerCamelCase;
-                return expressionBuilder;
+				var expressionBuilder = new ExpressionBuilder("map") {
+					Execute = SoftExecute,
+					TransformToken = Core.ToLowerCamelCase
+				};
+				return expressionBuilder;
             }
         }
 
@@ -176,12 +178,13 @@ namespace MapboxNetWPF
         {
             get
             {
-                var expressionBuilder = new ExpressionBuilder("map");
-                expressionBuilder.Execute = Execute;
-                expressionBuilder.TransformToken = Core.ToLowerCamelCase;
-                expressionBuilder.ExecuteKey = "Eval";
-                //lazyExpressions.Add(expressionBuilder);
-                return expressionBuilder;
+				var expressionBuilder = new ExpressionBuilder("map") {
+					Execute = Execute,
+					TransformToken = Core.ToLowerCamelCase,
+					ExecuteKey = "Eval"
+				};
+				//lazyExpressions.Add(expressionBuilder);
+				return expressionBuilder;
             }
         }
 
@@ -212,12 +215,14 @@ namespace MapboxNetWPF
                 Reloading?.Invoke(this, null);
             }
 
-            BrowserSettings browserSettings = new BrowserSettings();
-            browserSettings.WindowlessFrameRate = 60;
+			BrowserSettings browserSettings = new BrowserSettings {
+				WindowlessFrameRate = 60
+			};
 
-            webView = new CefSharp.Wpf.ChromiumWebBrowser();
-            webView.IsBrowserInitializedChanged += WebView_IsBrowserInitializedChanged;
-            webView.BrowserSettings = browserSettings;
+			webView = new CefSharp.Wpf.ChromiumWebBrowser {
+				BrowserSettings = browserSettings
+			};
+			webView.IsBrowserInitializedChanged += WebView_IsBrowserInitializedChanged;
             MainGrid.Children.Add(webView);
         }
 
@@ -378,6 +383,7 @@ namespace MapboxNetWPF
 
                 object result = null;
                 JavascriptResponse response = task.Result;
+                
                 if (!task.IsFaulted && response.Success)
                 {
                     result = response.Result;
@@ -387,11 +393,17 @@ namespace MapboxNetWPF
                     throw new Exception(response.Message);
                 }
 
+                if (result is null)
+                {
+                    throw new Exception("Null result");
+                }
+
                 try
                 {
                     var obj = Core.DecodeJsonPlain(result.ToString());
                     return obj;
-                } catch(Exception e)
+                }
+                catch(Exception e)
                 {
                     // TODO lodge exception when using ToString() on the result in certain cases
                     return null;
