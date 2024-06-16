@@ -101,10 +101,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MapboxNetCore\MapboxNetCore.csproj">
-      <Project>{657821b4-5c50-4d72-9898-81352a6130dc}</Project>
-      <Name>MapboxNetCore</Name>
-    </ProjectReference>
     <ProjectReference Include="..\MapboxNetWinForms\MapboxNetWinForms.csproj">
       <Project>{4662aba5-eae8-419d-ae4c-81dee38241bf}</Project>
       <Name>MapboxNetWinForms</Name>
