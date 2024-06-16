@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CefSharp.Common" Version="125.0.210" />
+    <PackageReference Include="CefSharp.Wpf" Version="125.0.210" />
+    <PackageReference Include="CefSharp.Wpf.NETCore" Version="125.0.210" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MapBoxNetBase\MapBoxNetBase.csproj" />
+  </ItemGroup>
+
+</Project>
