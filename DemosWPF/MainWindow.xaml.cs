@@ -30,7 +30,7 @@ namespace DemosWPF
             // or set `AccessToken` property on each map control
             // Go to http://mapbox.com to register and get your token
 
-            accessToken = "";
+            accessToken = "pk.eyJ1IjoiZHhqYWNvYiIsImEiOiJwYXotMmtVIn0.rvNzd7EZTKqynbx-9BQdtA";
             
             if (accessToken == "")
             {
